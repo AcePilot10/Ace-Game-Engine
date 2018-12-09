@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+	<Setting name="FRAME_WIDTH">500</Setting>
+	<Setting name="FRAME_HEIGHT">450</Setting>
+	<Setting name="FRAME_TITLE">Game Engine</Setting>
+	<Setting name="GRAVITY">1.0</Setting>
+</Settings>
