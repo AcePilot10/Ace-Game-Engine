@@ -75,10 +75,12 @@ public class GameLoop implements Runnable {
 
 	}
 	
-	private synchronized void updateListeners() {
-		for(IUpdateListener listener : listeners) {
-			listener.update();
-		}
+	private void updateListeners() {
+		try {
+			for(IUpdateListener listener : listeners) {
+				listener.update();
+			} 
+		} catch(Exception e) { }
 	}
 	
 	public synchronized void registerListener(IUpdateListener listener) {
