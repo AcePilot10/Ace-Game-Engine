@@ -10,11 +10,6 @@ public class Pong extends Game {
 	
 	@Override
 	public void initGameView() {
-		gameView = new PongView();
-	}
-	
-	@Override
-	public void onEnable() {
-		registerEventListener(new PongEventListener());
+		gameView = new TestView();
 	}
 }

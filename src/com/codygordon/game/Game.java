@@ -52,6 +52,16 @@ public class Game extends BaseGame {
 		gameWindow.setVisible(true);
 	}
 	
+	public void switchScreen(GameView view) {
+		gameWindow.getContentPane().removeAll();
+		gameWindow.getContentPane().add(view);
+		gameWindow.getContentPane().revalidate();
+		gameWindow.getContentPane().repaint();
+		this.gameView = view;
+		initGameLoop();
+		validate();
+	}
+	
 	/** Getters **/
 	public GameLoop getGameLoop() {
 		return this.gameLoop;

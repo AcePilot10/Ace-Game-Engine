@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import com.codygordon.game.Game;
 import com.codygordon.game.demos.pong.gameobjects.Ball;
 import com.codygordon.game.demos.pong.gameobjects.Paddle;
 import com.codygordon.game.demos.pong.gameobjects.ScreenBorder;
@@ -31,6 +32,11 @@ public class PongView extends GameView {
 		controller = new PongController(this);
 		initGameObjects();
 		initBorders();
+	}
+	
+	@Override
+	public void onEnable() {
+		Game.getInstance().registerEventListener(new PongEventListener());
 	}
 	
 	private void initGameObjects() {

@@ -35,6 +35,7 @@ public class PongController {
 		if(obj.name == "Ball") {
 			switch(border) {
 			case ScreenBorder.TOP:
+				Game.getInstance().switchScreen(new TestView());
 				rb.velocity =  new Vector2(rb.velocity.x, PongView.BALL_SPEED);
 				break;
 			case ScreenBorder.BOTTOM:

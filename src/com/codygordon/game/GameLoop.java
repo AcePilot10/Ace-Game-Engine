@@ -86,4 +86,8 @@ public class GameLoop implements Runnable {
 	public synchronized void registerListener(IUpdateListener listener) {
 		listeners.add(listener);
 	}
+	
+	public void cancel() {
+		this.running = false;
+	}
 }
