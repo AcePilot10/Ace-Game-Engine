@@ -8,7 +8,6 @@ import com.codygordon.game.interfaces.IUpdateListener;
 public class GameLoop implements Runnable {
 
 	private List<IUpdateListener> listeners = new ArrayList<IUpdateListener>();
-	private List<IUpdateListener> listenersToBeAdded = new ArrayList<IUpdateListener>();
 	
 	public static int fps = 0;
 	public static double deltaTime = 0;
@@ -77,14 +76,12 @@ public class GameLoop implements Runnable {
 	}
 	
 	private void updateListeners() {
-		listeners.addAll(listenersToBeAdded);
-		listenersToBeAdded.clear();
 		for(IUpdateListener listener : listeners) {
 			listener.update();
 		}
 	}
 	
-	public void registerListener(IUpdateListener listener) {
-		listenersToBeAdded.add(listener);
+	public synchronized void registerListener(IUpdateListener listener) {
+		listeners.add(listener);
 	}
 }

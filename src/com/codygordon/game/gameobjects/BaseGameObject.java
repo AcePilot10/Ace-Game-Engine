@@ -9,16 +9,9 @@ import com.codygordon.game.interfaces.IUpdateListener;
 public class BaseGameObject implements ICollisionDetecter, IUpdateListener, IDrawable {
 	
 	protected void onEnable() { }
-	
 	public void onAddComponents() { }
-
-	@Override
 	public void update() { }
-
-	@Override
 	public void onCollision(GameObject obj) { }
-
-	@Override
 	public void paint(Graphics g) { }	
 	
 }
