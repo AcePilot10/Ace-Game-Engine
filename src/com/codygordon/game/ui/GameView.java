@@ -13,28 +13,27 @@ public class GameView extends BaseGameView {
 
 	private static GameView instance;
 	
-	protected ArrayList<GameObject> gameObjects;
-	
-	public GameView() {
+	protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+
+	public void init() {
 		instance = this;
-		init();
+		revalidate();
 		onEnable();
-		validate();
 		onCreateGameObjects();
+		Game.getInstance().getGameLoop().registerListener(this);
+		setBackground(Color.red);	
 	}
-	
-	protected void init() {
-		setBackground(Color.red);
-		gameObjects = new ArrayList<GameObject>();
-		System.out.println("Game view is initialized");
-	}
-	
+
 	@Override
 	public synchronized void paint(Graphics g) {
 		super.paint(g);
 		for(GameObject obj : gameObjects) {
 			obj.paint(g);
 		}
+	}
+	
+	public void update() {
+		repaint();
 	}
 	
 	public ArrayList<GameObject> getGameObjects() {
@@ -56,8 +55,4 @@ public class GameView extends BaseGameView {
 	public static GameView getGameView() {
 		return instance;
 	}	
-	
-	public void update() {
-		repaint();
-	}
 }

@@ -22,6 +22,7 @@ public class GravityDemoView extends GameView {
 		Game.getInstance().registerEventListener(new EventListener() {
 			@Override
 			public void onKeyPressed(KeyDownEvent event) {
+				System.out.println("Key press detected");
 				int key = event.getKeyEvent().getKeyCode();
 				if(key == KeyEvent.VK_SPACE) {
 					ball.jump();

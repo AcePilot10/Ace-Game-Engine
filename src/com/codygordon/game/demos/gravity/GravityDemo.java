@@ -10,6 +10,7 @@ public class GravityDemo extends Game {
 	
 	@Override
 	public void initGameView() {
-		gameView = new GravityDemoView();
+		//gameView = new GravityDemoView();
+		gameView = new TestView();
 	}
 }

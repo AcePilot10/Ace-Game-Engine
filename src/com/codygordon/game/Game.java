@@ -36,29 +36,30 @@ public class Game extends BaseGame {
 		gameLoop = new GameLoop();
 		gameLoopThread = new Thread(gameLoop);
 		gameLoopThread.setName("Game Loop Thread");
+		gameLoopThread.start();
 		System.out.println("Started game loop");
 	}
 	
 	public void initGameView() {
 		System.out.print("Initializing base view");
 		gameView = new GameView();
-		gameWindow.add(gameView);
 	}
 
 	public void validate() {
+		gameWindow.getContentPane().add(gameView);
 		registerUpdateListener(gameView);
-		gameWindow.add(gameView);
-		gameLoopThread.start();
+		gameWindow.revalidate();
 		gameWindow.setVisible(true);
+		gameView.init();
+
 	}
 	
 	public void switchScreen(GameView view) {
-		gameWindow.getContentPane().removeAll();
-		gameWindow.getContentPane().add(view);
-		gameWindow.getContentPane().revalidate();
-		gameWindow.getContentPane().repaint();
-		this.gameView = view;
-		initGameLoop();
+		System.out.println("Switching to: " + view.getClass().getSimpleName());
+		gameView.onDisable();
+		gameLoop.unRegisterListener(gameView);
+		gameWindow.getContentPane().remove(gameView);
+		this.gameView = view;		
 		validate();
 	}
 	
@@ -80,7 +81,12 @@ public class Game extends BaseGame {
 	public void registerUpdateListener(IUpdateListener listener) {
 		gameLoop.registerListener(listener);
 	}	
+	
 	public void registerEventListener(EventListener listener) {
 		gameWindow.registerEventListener(listener);
+	}
+	
+	public void unRegisterEventListener(EventListener listener) {
+		gameWindow.unRegisterEventListener(listener);
 	}
 }

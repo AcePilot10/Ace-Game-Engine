@@ -7,39 +7,48 @@ import java.awt.Point;
 import com.codygordon.game.Game;
 import com.codygordon.game.demos.pong.gameobjects.Ball;
 import com.codygordon.game.demos.pong.gameobjects.Paddle;
-import com.codygordon.game.demos.pong.gameobjects.ScreenBorder;
 import com.codygordon.game.gameobjects.GameObject;
 import com.codygordon.game.gameobjects.components.Collider;
+import com.codygordon.game.input.EventListener;
+import com.codygordon.game.input.events.KeyDownEvent;
 import com.codygordon.game.physics.Vector2;
 import com.codygordon.game.settings.Settings;
 import com.codygordon.game.ui.GameView;
+import com.codygordon.game.util.ScreenBorder;
 import com.codygordon.game.util.ScreenBorder.BorderDelegate;
 import com.codygordon.game.util.ScreenBorder.ScreenBorderObject;
 
-public class PongView extends GameView {
+public class PongView extends GameView implements EventListener {
 	 
 	public Ball ball;
 	public Paddle paddle1, paddle2;
-	public ScreenBorder borderTop, borderBottom, borderLeft, borderRight;
 	
 	private PongController controller;
-	private com.codygordon.game.util.ScreenBorder border;
+	private ScreenBorder border;
+	
+	private PongEventListener listener;
 	
 	public static int BALL_SPEED = 2;
 	
-	public PongView() {
-		super();
+	@Override
+	public void onEnable() {
+		setFocusable(true);
+		requestFocus();
 		controller = new PongController(this);
-		initGameObjects();
-		initBorders();
+		//listener = new PongEventListener();
+		//Game.getInstance().registerEventListener(listener);
+		Game.getInstance().registerEventListener(this);
 	}
 	
 	@Override
-	public void onEnable() {
-		Game.getInstance().registerEventListener(new PongEventListener());
-	}
-	
-	private void initGameObjects() {
+	public void onCreateGameObjects() {
+		border = new ScreenBorder(5, new BorderDelegate() {
+			@Override
+			public void BorderHit(int border, GameObject col) {
+				controller.handleBorderHit(border, col);
+			}
+		}, this);
+
 		int paddleWidth = 25;
 		int paddleHeight = 150;
 		int frameWidth = Integer.parseInt(Settings.getInstance().getSetting("FRAME_WIDTH"));
@@ -76,15 +85,6 @@ public class PongView extends GameView {
 		ball.rigidbody.useGravity = false;
 	}
 
-	private void initBorders() {
-		border = new com.codygordon.game.util.ScreenBorder(5, new BorderDelegate() {
-			@Override
-			public void BorderHit(int border, GameObject col) {
-				controller.handleBorderHit(border, col);
-			}
-		}, this);
-	}
-	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -122,5 +122,16 @@ public class PongView extends GameView {
 				   15, 15);
 	}
 
-	public PongController getController() { return this.controller; }
+	public PongController getController() { 
+		return this.controller; 
+	}
+
+	public PongEventListener getListener() {
+		return this.listener;
+	}
+
+	@Override
+	public void onKeyPressed(KeyDownEvent event) {
+		System.out.println("Pong view event");
+	}
 }

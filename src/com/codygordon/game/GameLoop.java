@@ -12,17 +12,10 @@ public class GameLoop implements Runnable {
 	public static int fps = 0;
 	public static double deltaTime = 0;
 	
-	private Thread thread;
 	private boolean running = false;
-	
 	
 	public static double MAX_FRAMES = 60.0;
 	private static final double UPDATE_CAP = 1.0 / MAX_FRAMES;
-	
-	public void start() {
-		thread = new Thread(this);
-		thread.run();
-	}
 	
 	@Override
 	public void run() {
@@ -71,11 +64,6 @@ public class GameLoop implements Runnable {
 	}
 	
 	private void update() {
-		updateListeners();
-
-	}
-	
-	private void updateListeners() {
 		try {
 			for(IUpdateListener listener : listeners) {
 				listener.update();
@@ -87,7 +75,18 @@ public class GameLoop implements Runnable {
 		listeners.add(listener);
 	}
 	
-	public void cancel() {
-		this.running = false;
+	public synchronized void unRegisterListener(IUpdateListener listener) {
+		if(listeners.contains(listener)) {
+			listeners.remove(listener);
+		}
+	}
+
+	public void stop() {
+		listeners.clear();
+		running = false;
+	}
+	
+	public boolean isRunning() {
+		return this.running;
 	}
 }

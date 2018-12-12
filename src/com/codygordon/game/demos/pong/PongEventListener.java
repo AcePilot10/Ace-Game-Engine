@@ -12,6 +12,7 @@ public class PongEventListener implements EventListener {
 	
 	@Override
 	public void onKeyPressed(KeyDownEvent event) {
+		System.out.println("Detected key event");
 		PongView view = (PongView)Game.getInstance().getGameView();
 		int key = event.getKeyEvent().getKeyCode();
 		if(key == KeyEvent.VK_W) {
