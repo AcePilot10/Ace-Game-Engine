@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-import com.codygordon.game.Game;
 import com.codygordon.game.demos.pong.gameobjects.Ball;
 import com.codygordon.game.demos.pong.gameobjects.Paddle;
 import com.codygordon.game.gameobjects.GameObject;
 import com.codygordon.game.gameobjects.components.Collider;
-import com.codygordon.game.input.EventListener;
 import com.codygordon.game.input.events.KeyDownEvent;
 import com.codygordon.game.physics.Vector2;
 import com.codygordon.game.settings.Settings;
@@ -18,7 +16,7 @@ import com.codygordon.game.util.ScreenBorder;
 import com.codygordon.game.util.ScreenBorder.BorderDelegate;
 import com.codygordon.game.util.ScreenBorder.ScreenBorderObject;
 
-public class PongView extends GameView implements EventListener {
+public class PongView extends GameView {
 	 
 	public Ball ball;
 	public Paddle paddle1, paddle2;
@@ -35,9 +33,8 @@ public class PongView extends GameView implements EventListener {
 		setFocusable(true);
 		requestFocus();
 		controller = new PongController(this);
-		//listener = new PongEventListener();
-		//Game.getInstance().registerEventListener(listener);
-		Game.getInstance().registerEventListener(this);
+		listener = new PongEventListener();
+		GetKeyListener().registerListener(listener);
 	}
 	
 	@Override
@@ -61,6 +58,8 @@ public class PongView extends GameView implements EventListener {
 		ball.size = new Point(50, 50);
 		ball.location = new Vector2(frameWidth / 2, frameHeight / 2);
 		ball.name = "Ball";
+		
+		System.out.println("Ball has been created");
 		
 		paddle1.paddleNumber = 1;
 		paddle2.paddleNumber = 2;
@@ -122,16 +121,16 @@ public class PongView extends GameView implements EventListener {
 				   15, 15);
 	}
 
+	@Override
+	public void onKeyPressed(KeyDownEvent e) {
+		System.out.println("Detected event!");
+	}
+	
 	public PongController getController() { 
 		return this.controller; 
 	}
 
 	public PongEventListener getListener() {
 		return this.listener;
-	}
-
-	@Override
-	public void onKeyPressed(KeyDownEvent event) {
-		System.out.println("Pong view event");
 	}
 }

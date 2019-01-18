@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import com.codygordon.game.Game;
+import com.codygordon.game.input.events.KeyDownEvent;
 import com.codygordon.game.ui.GameView;
 
 public class TestView extends GameView {
@@ -29,5 +30,10 @@ public class TestView extends GameView {
 		super.paint(g);
 		g.setColor(Color.RED);
 		g.drawRect(50, 50, 100, 100);
+	}
+	
+	@Override
+	public void onKeyPressed(KeyDownEvent e) {
+		System.out.println("Key pressed!");
 	}
 }

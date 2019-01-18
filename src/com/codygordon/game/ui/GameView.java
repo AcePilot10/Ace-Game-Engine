@@ -6,12 +6,16 @@ import java.util.ArrayList;
 
 import com.codygordon.game.Game;
 import com.codygordon.game.gameobjects.GameObject;
+import com.codygordon.game.input.EventListener;
+import com.codygordon.game.input.events.KeyDownEvent;
 
-public class GameView extends BaseGameView {
+public class GameView extends BaseGameView implements EventListener {
 
 	private static final long serialVersionUID = 1L;
 
 	private static GameView instance;
+	
+	private GameViewKeyListener keyListener;
 	
 	protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
@@ -20,8 +24,14 @@ public class GameView extends BaseGameView {
 		revalidate();
 		onEnable();
 		onCreateGameObjects();
-		Game.getInstance().getGameLoop().registerListener(this);
+		Game.getInstance().getGameLoop().registerUpdateListener(this);
 		setBackground(Color.red);	
+		initKeyListener();
+	}
+	
+	private void initKeyListener() {
+		keyListener = new GameViewKeyListener();
+		keyListener.registerListener(this);
 	}
 
 	@Override
@@ -54,5 +64,12 @@ public class GameView extends BaseGameView {
 	
 	public static GameView getGameView() {
 		return instance;
+	}
+	
+	public GameViewKeyListener GetKeyListener() { return this.keyListener; } 
+
+	@Override
+	public void onKeyPressed(KeyDownEvent event) {
+		System.out.println("Key press detected");
 	}	
 }

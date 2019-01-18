@@ -45,15 +45,15 @@ public class PipeTestView extends GameView {
 			}
 		}, this);
 		
-		Game.getInstance().registerEventListener(new EventListener() {
-			@Override
-			public void onKeyPressed(KeyDownEvent event) {
-				int key = event.getKeyEvent().getKeyCode();
-				if(key == KeyEvent.VK_SPACE) {
-					player.jump();
-				}
-			}
-		});
+//		Game.getInstance().registerEventListener(new EventListener() {
+//			@Override
+//			public void onKeyPressed(KeyDownEvent event) {
+//				int key = event.getKeyEvent().getKeyCode();
+//				if(key == KeyEvent.VK_SPACE) {
+//					player.jump();
+//				}
+//			}
+//		});
 	}
 
 	@Override

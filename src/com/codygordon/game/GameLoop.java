@@ -33,21 +33,17 @@ public class GameLoop implements Runnable {
 			deltaTime = firstTime - lastTime;
 			lastTime = firstTime;
 			render = false;
-			
 			unprocessedTime += deltaTime;
 			frameTime += deltaTime;
-			
 			while(unprocessedTime >= UPDATE_CAP) {
 				unprocessedTime -= UPDATE_CAP;
 				render = true;
-			
 				if(frameTime >= 1.0) {
 					frameTime = 0;
 					fps = frames;
 					frames = 0;
 				}
 			}
-			
 			if(render) {
 				update();
 				frames++;
@@ -71,11 +67,11 @@ public class GameLoop implements Runnable {
 		} catch(Exception e) { }
 	}
 	
-	public synchronized void registerListener(IUpdateListener listener) {
+	public synchronized void registerUpdateListener(IUpdateListener listener) {
 		listeners.add(listener);
 	}
 	
-	public synchronized void unRegisterListener(IUpdateListener listener) {
+	public synchronized void unRegisterUpdateListener(IUpdateListener listener) {
 		if(listeners.contains(listener)) {
 			listeners.remove(listener);
 		}

@@ -10,9 +10,7 @@ import com.codygordon.game.settings.Settings;
 public class GameWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	private GameWindowKeyListener listener;
-	
+
 	public GameWindow() {
 		init();
 	}
@@ -25,21 +23,11 @@ public class GameWindow extends JFrame {
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		initKeyListener();
 		setLayout(new GridLayout());
 		setVisible(true);
 	}
 	
-	public void initKeyListener() {
-		listener = new GameWindowKeyListener();
-		addKeyListener(listener);
-	}
-	
-	public void registerEventListener(EventListener listener) {
-		this.listener.registerListener(listener);
-	}
-	
-	public void unRegisterEventListener(EventListener eventListener) {
-		this.listener.unRegisterListener(eventListener);
+	public void validateScreen() {
+		requestFocus();
 	}
 }

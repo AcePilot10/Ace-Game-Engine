@@ -12,7 +12,7 @@ public class TestView extends GameView implements EventListener {
 	@Override 
 	public void onEnable() {
 		setBackground(Color.BLUE);
-		Game.getInstance().registerEventListener(this);
+//		Game.getInstance().registerEventListener(this);
 	}
 
 	@Override
@@ -22,6 +22,6 @@ public class TestView extends GameView implements EventListener {
 	
 	@Override
 	public void onDisable() {
-		Game.getInstance().unRegisterEventListener(this);
+//		Game.getInstance().unRegisterEventListener(this);
 	}
 }
