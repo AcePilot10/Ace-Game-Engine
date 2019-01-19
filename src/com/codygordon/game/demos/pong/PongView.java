@@ -8,7 +8,6 @@ import com.codygordon.game.demos.pong.gameobjects.Ball;
 import com.codygordon.game.demos.pong.gameobjects.Paddle;
 import com.codygordon.game.gameobjects.GameObject;
 import com.codygordon.game.gameobjects.components.Collider;
-import com.codygordon.game.input.events.KeyDownEvent;
 import com.codygordon.game.physics.Vector2;
 import com.codygordon.game.settings.Settings;
 import com.codygordon.game.ui.GameView;
@@ -30,11 +29,16 @@ public class PongView extends GameView {
 	
 	@Override
 	public void onEnable() {
-		setFocusable(true);
-		requestFocus();
+		super.onEnable();
 		controller = new PongController(this);
 		listener = new PongEventListener();
 		GetKeyListener().registerListener(listener);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		GetKeyListener().unRegisterListener(listener);
 	}
 	
 	@Override
@@ -119,11 +123,6 @@ public class PongView extends GameView {
 		g.drawRect((int)paddle1.location.x,
 				   (int)paddle1.location.y,
 				   15, 15);
-	}
-
-	@Override
-	public void onKeyPressed(KeyDownEvent e) {
-		System.out.println("Detected event!");
 	}
 	
 	public PongController getController() { 

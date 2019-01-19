@@ -3,38 +3,40 @@ package com.codygordon.game.ui;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
-import com.codygordon.game.input.EventListener;
+import com.codygordon.game.input.IEventListener;
 import com.codygordon.game.input.events.KeyDownEvent;
 
 public class GameViewKeyListener extends KeyAdapter {
 	public interface EventDelegate {
-		public void DoAction(EventListener eventListener);
+		public void DoAction(IEventListener eventListener);
 	}
-	
-	private ArrayList<EventListener> listeners = new ArrayList<EventListener>();
-	
+
+	private ArrayList<IEventListener> listeners = new ArrayList<IEventListener>();
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);
-		System.out.println("Key pressed on windowd");
 		executeEvent(x -> x.onKeyPressed(new KeyDownEvent(e)));
 	}
-	
-	private void executeEvent(EventDelegate delegate) {
-		System.out.println("Detected event");
-		for(EventListener listener : listeners) {
-			delegate.DoAction(listener);
+
+	private synchronized void executeEvent(EventDelegate delegate) {
+		try {
+			for (IEventListener listener : listeners) {
+				delegate.DoAction(listener);
+			}
+		} catch (ConcurrentModificationException e) {
+			System.out.println("Skipped over event execution");
 		}
 	}
-	
-	public void registerListener(EventListener listener) {
+
+	public synchronized void registerListener(IEventListener listener) {
 		listeners.add(listener);
-		System.out.println("Window event listener registered! Typeof " + listener.getClass().getTypeName());
 	}
-	
-	public void unRegisterListener(EventListener listener) {
-		if(listeners.contains(listener)) {
+
+	public synchronized void unRegisterListener(IEventListener listener) {
+		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		}
 	}

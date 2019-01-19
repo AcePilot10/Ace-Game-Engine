@@ -10,5 +10,16 @@ public abstract class BaseGameView extends JPanel implements IUpdateListener {
 	protected ScreenBorder screenBorder;
 	protected void onCreateGameObjects() { }
 	protected void onEnable() { }
-	public void onDisable() { }
+	protected void onCreate() { } 
+	protected void onDestroy() { }
+
+	public void createGameView() {
+		onCreate();
+		onCreateGameObjects();
+		onEnable();
+	}
+	
+	public void destroyGameView() {
+		onDestroy();
+	}
 }

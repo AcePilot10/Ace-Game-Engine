@@ -3,12 +3,10 @@ package com.codygordon.game.demos.pipetest;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
-import com.codygordon.game.Game;
 import com.codygordon.game.demos.pipetest.gameobjects.Pipe;
 import com.codygordon.game.demos.pipetest.gameobjects.Player;
 import com.codygordon.game.gameobjects.GameObject;
 import com.codygordon.game.gameobjects.components.Collider;
-import com.codygordon.game.input.EventListener;
 import com.codygordon.game.input.events.KeyDownEvent;
 import com.codygordon.game.physics.Vector2;
 import com.codygordon.game.ui.GameView;
@@ -44,18 +42,16 @@ public class PipeTestView extends GameView {
 				onBorderHit(border, col);
 			}
 		}, this);
-		
-//		Game.getInstance().registerEventListener(new EventListener() {
-//			@Override
-//			public void onKeyPressed(KeyDownEvent event) {
-//				int key = event.getKeyEvent().getKeyCode();
-//				if(key == KeyEvent.VK_SPACE) {
-//					player.jump();
-//				}
-//			}
-//		});
 	}
 
+	@Override
+	public void onKeyPressed(KeyDownEvent e) {
+		int key = e.getKeyEvent().getKeyCode();
+		if(key == KeyEvent.VK_SPACE) {
+			player.jump();
+		} 
+	}
+	
 	@Override
 	public void onCreateGameObjects() {
 		player = new Player();

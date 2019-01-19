@@ -1,6 +1,5 @@
 package com.codygordon.game;
 
-import com.codygordon.game.input.EventListener;
 import com.codygordon.game.interfaces.IUpdateListener;
 import com.codygordon.game.ui.GameView;
 import com.codygordon.game.ui.GameWindow;
@@ -9,29 +8,18 @@ public class Game extends BaseGame {
 
 	private static Game instance;
 
-	private GameLoop gameLoop;
-	private Thread gameLoopThread;
-	protected GameWindow gameWindow;
-	protected GameView gameView;
-
 	public Game() {
 		instance = this;
-		createGame();
+		startGame();
 	}
 
-	public void createGame() {
-		initWindow();
-		initGameView();
-		initGameLoop();
-		validate();
-		onEnable();
-	}
-
+	@Override
 	public void initWindow() {
 		gameWindow = new GameWindow();
 		System.out.println("Created game window");
 	}
 
+	@Override
 	public void initGameLoop() {
 		gameLoop = new GameLoop();
 		gameLoopThread = new Thread(gameLoop);
@@ -40,26 +28,31 @@ public class Game extends BaseGame {
 		System.out.println("Started game loop");
 	}
 
+	@Override
 	public void initGameView() {
 		System.out.print("Initializing base view");
 		gameView = new GameView();
 	}
 
+	@Override
 	public void validate() {
 		gameWindow.getContentPane().add(gameView);
 		registerUpdateListener(gameView);
 		gameWindow.revalidate();
 		gameWindow.setVisible(true);
-		gameView.init();
+		gameView.createGameView();
+		gameWindow.validate();
+		gameView.validate();
 	}
 
 	public void switchScreen(GameView view) {
 		System.out.println("Switching to: " + view.getClass().getSimpleName());
-		gameView.onDisable();
-		gameLoop.unRegisterUpdateListener(gameView);
+		gameLoop.clearUpdateListeners();
+		gameView.destroyGameView();
 		gameWindow.getContentPane().remove(gameView);
 		this.gameView = view;
-		validate();
+		view.createGameView();
+		displayScreen();
 	}
 
 	/** Getters **/

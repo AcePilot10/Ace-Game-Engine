@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-import com.codygordon.game.input.EventListener;
 import com.codygordon.game.settings.Settings;
 
 public class GameWindow extends JFrame {
@@ -25,9 +24,5 @@ public class GameWindow extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout());
 		setVisible(true);
-	}
-	
-	public void validateScreen() {
-		requestFocus();
 	}
 }

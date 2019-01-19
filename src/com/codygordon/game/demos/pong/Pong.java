@@ -11,6 +11,5 @@ public class Pong extends Game {
 	@Override
 	public void initGameView() {
 		gameView = new TestView();
-		//gameView = new PongView();
 	}
 }

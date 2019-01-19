@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codygordon.game.interfaces.IUpdateListener;
+import com.codygordon.game.settings.Settings;
 
 public class GameLoop implements Runnable {
 
@@ -14,7 +15,7 @@ public class GameLoop implements Runnable {
 	
 	private boolean running = false;
 	
-	public static double MAX_FRAMES = 60.0;
+	public static double MAX_FRAMES = Double.parseDouble(Settings.getInstance().getSetting("TARGET_FRAME_RATE"));
 	private static final double UPDATE_CAP = 1.0 / MAX_FRAMES;
 	
 	@Override
@@ -67,11 +68,11 @@ public class GameLoop implements Runnable {
 		} catch(Exception e) { }
 	}
 	
-	public synchronized void registerUpdateListener(IUpdateListener listener) {
+	public void registerUpdateListener(IUpdateListener listener) {
 		listeners.add(listener);
 	}
 	
-	public synchronized void unRegisterUpdateListener(IUpdateListener listener) {
+	public void unRegisterUpdateListener(IUpdateListener listener) {
 		if(listeners.contains(listener)) {
 			listeners.remove(listener);
 		}
@@ -80,6 +81,10 @@ public class GameLoop implements Runnable {
 	public void stop() {
 		listeners.clear();
 		running = false;
+	}
+	
+	public void clearUpdateListeners() {
+		listeners.clear();
 	}
 	
 	public boolean isRunning() {

@@ -33,6 +33,7 @@ public class PongController {
 		Ball ball = view.ball;
 		Rigidbody rb = ball.rigidbody;
 		if(obj.name == "Ball") {
+			System.out.println("Ball hit border: " + border);
 			switch(border) {
 			case ScreenBorder.TOP:
 				System.out.println("Switching screens");

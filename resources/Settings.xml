@@ -4,4 +4,5 @@
 	<Setting name="FRAME_HEIGHT">450</Setting>
 	<Setting name="FRAME_TITLE">Game Engine</Setting>
 	<Setting name="GRAVITY">1.0</Setting>
+	<Setting name="TARGET_FRAME_RATE">60</Setting>
 </Settings>

@@ -6,13 +6,12 @@ import com.codygordon.game.Game;
 import com.codygordon.game.input.EventListener;
 import com.codygordon.game.input.events.KeyDownEvent;
 
-public class PongEventListener implements EventListener {
+public class PongEventListener extends EventListener {
 
 	public static final int PADDLE_MOVE_STRENGTH = 5;
 	
 	@Override
 	public void onKeyPressed(KeyDownEvent event) {
-		System.out.println("Detected key event");
 		PongView view = (PongView)Game.getInstance().getGameView();
 		int key = event.getKeyEvent().getKeyCode();
 		if(key == KeyEvent.VK_W) {

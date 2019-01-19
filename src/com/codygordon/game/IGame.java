@@ -4,6 +4,5 @@ public interface IGame {
 	void initWindow();
 	void initGameLoop();
 	void initGameView();
-	void onEnable();
 	void validate();
 }

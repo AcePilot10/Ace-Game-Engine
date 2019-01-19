@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import com.codygordon.game.Game;
 import com.codygordon.game.gameobjects.GameObject;
-import com.codygordon.game.input.EventListener;
+import com.codygordon.game.input.IEventListener;
 import com.codygordon.game.input.events.KeyDownEvent;
 
-public class GameView extends BaseGameView implements EventListener {
+public class GameView extends BaseGameView implements IEventListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,19 +19,31 @@ public class GameView extends BaseGameView implements EventListener {
 	
 	protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
-	public void init() {
+	@Override
+	public void onCreate() {
 		instance = this;
-		revalidate();
-		onEnable();
-		onCreateGameObjects();
-		Game.getInstance().getGameLoop().registerUpdateListener(this);
 		setBackground(Color.red);	
 		initKeyListener();
+		setFocusable(true);
+		requestFocus();
+	}
+	
+	@Override
+	public void onEnable() {
+		Game.getInstance().getGameLoop().registerUpdateListener(this);
+	}
+	
+	@Override
+	public void onDestroy() {
+		GetKeyListener().unRegisterListener(this);
 	}
 	
 	private void initKeyListener() {
 		keyListener = new GameViewKeyListener();
 		keyListener.registerListener(this);
+		addKeyListener(keyListener);
+		setFocusable(true);
+		requestFocus();
 	}
 
 	@Override
@@ -42,6 +54,7 @@ public class GameView extends BaseGameView implements EventListener {
 		}
 	}
 	
+	@Override
 	public void update() {
 		repaint();
 	}
@@ -66,10 +79,14 @@ public class GameView extends BaseGameView implements EventListener {
 		return instance;
 	}
 	
-	public GameViewKeyListener GetKeyListener() { return this.keyListener; } 
+	public GameViewKeyListener GetKeyListener() {
+		return this.keyListener; 
+	} 
 
 	@Override
-	public void onKeyPressed(KeyDownEvent event) {
-		System.out.println("Key press detected");
-	}	
+	public void onKeyPressed(KeyDownEvent event) { }	
+
+	public boolean isRunning() {
+		return Game.getInstance().getGameLoop() != null;
+	}
 }
