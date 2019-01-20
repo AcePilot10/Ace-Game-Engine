@@ -7,7 +7,9 @@ import com.codygordon.game.util.ScreenBorder;
 
 public abstract class BaseGameView extends JPanel implements IUpdateListener {
 	private static final long serialVersionUID = 2234335970350733145L;
+	
 	protected ScreenBorder screenBorder;
+	
 	protected void onCreateGameObjects() { }
 	protected void onEnable() { }
 	protected void onCreate() { } 

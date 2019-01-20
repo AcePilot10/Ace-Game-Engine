@@ -14,15 +14,12 @@ public abstract class BaseGame implements IGame {
 	public abstract void initGameLoop();
 	public abstract void initGameView();
 	public abstract void validate();
+	public abstract void show();
 	
 	public void startGame() {
 		initWindow();
 		initGameLoop();
 		initGameView();
-		validate();
-	}
-	
-	public void displayScreen() {
-		validate();
+		show();
 	}
 }

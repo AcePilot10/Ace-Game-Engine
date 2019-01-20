@@ -1,5 +1,3 @@
 package com.codygordon.game.input;
 
-public class Event {
-
-}
+public class Event { }

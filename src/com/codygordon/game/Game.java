@@ -36,13 +36,17 @@ public class Game extends BaseGame {
 
 	@Override
 	public void validate() {
-		gameWindow.getContentPane().add(gameView);
-		registerUpdateListener(gameView);
 		gameWindow.revalidate();
 		gameWindow.setVisible(true);
-		gameView.createGameView();
 		gameWindow.validate();
 		gameView.validate();
+	}
+	
+	@Override
+	public void show() {
+		gameWindow.getContentPane().add(gameView);
+		gameView.createGameView();
+		validate();
 	}
 
 	public void switchScreen(GameView view) {
@@ -51,8 +55,9 @@ public class Game extends BaseGame {
 		gameView.destroyGameView();
 		gameWindow.getContentPane().remove(gameView);
 		this.gameView = view;
+		gameWindow.getContentPane().add(gameView);
 		view.createGameView();
-		displayScreen();
+		validate();
 	}
 
 	/** Getters **/

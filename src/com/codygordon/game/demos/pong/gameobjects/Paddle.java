@@ -27,9 +27,7 @@ public class Paddle extends GameObject {
 			if(paddleNumber == 1) {
 				rb.velocity = new Vector2(PongView.BALL_SPEED, hitFactor(ball));
 			} else if(paddleNumber == 2){
-				System.out.println("Reversing Ball");
 				rb.velocity = new Vector2(-PongView.BALL_SPEED, hitFactor(ball));
-				System.out.println(rb.velocity.x);
 			}
 		}
 	}
