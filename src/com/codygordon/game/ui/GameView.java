@@ -19,6 +19,8 @@ public class GameView extends BaseGameView implements IEventListener {
 	
 	protected ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
+	private boolean initialized = false;
+	
 	@Override
 	public void onCreate() {
 		instance = this;
@@ -31,6 +33,7 @@ public class GameView extends BaseGameView implements IEventListener {
 	@Override
 	public void onEnable() {
 		Game.getInstance().getGameLoop().registerUpdateListener(this);
+		initialized = true;
 	}
 	
 	@Override
@@ -88,5 +91,9 @@ public class GameView extends BaseGameView implements IEventListener {
 
 	public boolean isRunning() {
 		return Game.getInstance().getGameLoop() != null;
+	}
+	
+	public boolean isInitialized() {
+		return this.initialized;
 	}
 }

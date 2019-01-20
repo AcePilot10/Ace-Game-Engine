@@ -4,6 +4,7 @@ import com.codygordon.game.ui.GameView;
 import com.codygordon.game.ui.GameWindow;
 
 public abstract class BaseGame implements IGame {
+	
 	protected GameLoop gameLoop;
 	protected Thread gameLoopThread;
 	protected GameWindow gameWindow;
