@@ -21,10 +21,6 @@ public class GameView extends BaseGameView implements IEventListener {
 
 	private boolean initialized = false;
 	
-	public GameView() {
-		//createGameView();
-	}
-	
 	@Override
 	public void onCreate() {
 		instance = this;
