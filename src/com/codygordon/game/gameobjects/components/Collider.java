@@ -29,7 +29,7 @@ public class Collider extends Component {
 		rect.setLocation(new Point((int)gameObject.location.x, (int)gameObject.location.y));
 	}
 	
-	private void checkCollision() {
+	protected void checkCollision() {
 		try {
 			GameView view = Game.getInstance().getGameView();
 			for(GameObject obj : view.getGameObjects()) {
@@ -39,8 +39,7 @@ public class Collider extends Component {
 					if(col.gameObject == gameObject) return;
 					if(ignoredObjects.contains(col.gameObject.name)) return;
 					if(col.rect.intersects(rect)) {
-						gameObject.onCollision(col.gameObject);
-						col.gameObject.onCollision(gameObject);
+						executeCollisionWithObject(obj, col);
 					}
 				}
 			}
@@ -48,6 +47,11 @@ public class Collider extends Component {
 		catch(ConcurrentModificationException e) {
 			//e.printStackTrace();
 		}
+	}
+	
+	protected void executeCollisionWithObject(GameObject obj, Collider col) {
+		gameObject.onCollision(col.gameObject);
+		col.gameObject.onCollision(gameObject);
 	}
 
 	public void autoResize() {

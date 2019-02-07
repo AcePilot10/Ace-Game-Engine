@@ -32,13 +32,13 @@ public class GravityDemoView extends GameView {
 		}
 	}
 	
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		g.setColor(Color.BLACK);
-		g.fillOval((int)ball.location.x,
-				   (int)ball.location.y,
-				   (int)ball.size.x,
-				   (int)ball.size.y);
-	}
+//	@Override
+//	public void paint(Graphics g) {
+//		super.paint(g);
+//		g.setColor(Color.BLACK);
+//		g.fillOval((int)ball.location.x,
+//				   (int)ball.location.y,
+//				   (int)ball.size.x,
+//				   (int)ball.size.y);
+//	}
 }
